@@ -1,0 +1,32 @@
+package com.example._Board.comment.service.Impl;
+
+import com.example._Board.comment.domain.Comment;
+import com.example._Board.comment.domain.ReplyComment;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CommentResponse {
+
+    private Long userId;
+    private Long boardId;
+    private String comment;
+    private List<ReplyCommentResponse> replyResponse;
+
+    public CommentResponse(Comment comment) {
+        this.userId = comment.getUserId();
+        this.boardId = comment.getBoard().getId();
+        this.comment = comment.getComment();
+        this.replyResponse = comment.getReplyComments()
+                .stream()
+                .map(CommentResponse::new).collect(Collectors.toList());
+    }
+}
