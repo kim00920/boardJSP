@@ -46,8 +46,8 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
 
         Board board = comment.getBoard();
 
-        long replyCommentCount = commentRepository.replyCommentCount(board.getId()); // 대댓글 개수
-        long commentCount = commentRepository.commentCount(board.getId()); // 댓글 개수
+        long replyCommentCount = commentRepository.replyCommentCount(board.getId());
+        long commentCount = commentRepository.commentCount(board.getId());
         long totalCount = commentCount + replyCommentCount;
 
         boardRepository.updateCommentCount(board.getId(), totalCount);

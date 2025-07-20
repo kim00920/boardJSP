@@ -36,7 +36,14 @@ public enum ErrorCode {
     NOT_WRITE_REPLY_COMMENT(HttpStatus.BAD_REQUEST, "작성한 댓글이 아닙니다."),
 
     // 카테고리
-    CATEGORY_EXIST_BOARD(HttpStatus.BAD_REQUEST, "카테고리에 속한 게시글이 존재합니다.");
+    CATEGORY_EXIST_BOARD(HttpStatus.BAD_REQUEST, "카테고리에 속한 게시글이 존재합니다."),
+
+
+    // 알림
+    NOT_FOUND_NOTIFICATION(HttpStatus.NOT_FOUND, "유효하지 않는 알림입니다"),
+    NOT_MATCH_NOTIFICATION(HttpStatus.BAD_REQUEST, "회원 알림이 아닙니다");
+
+
 
     ErrorCode(HttpStatus httpStatus, String message) {
         this.httpStatus = httpStatus;

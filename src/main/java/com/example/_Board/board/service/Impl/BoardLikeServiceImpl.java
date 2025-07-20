@@ -7,6 +7,7 @@ import com.example._Board.board.domain.BoardLike;
 import com.example._Board.board.repository.BoardLikeRepository;
 import com.example._Board.board.repository.BoardRepository;
 import com.example._Board.board.service.BoardLikeService;
+import com.example._Board.config.rabbitMQ.LikeEventProducer;
 import com.example._Board.error.BusinessException;
 import com.example._Board.user.domain.User;
 import com.example._Board.user.repository.UserRepository;
@@ -30,6 +31,7 @@ public class BoardLikeServiceImpl implements BoardLikeService {
     private final BoardRepository boardRepository;
     private final BoardLikeRepository boardLikeRepository;
     private final UserRepository userRepository;
+    private final LikeEventProducer likeEventProducer;
 
 
     // 좋아요 누르기
@@ -48,6 +50,8 @@ public class BoardLikeServiceImpl implements BoardLikeService {
         board.increaseLikeCount();
 
         boardLikeRepository.save(boardLike);
+
+        likeEventProducer.sendLikeNotification(boardId, user.getId(), board.getUser().getId());
     }
 
     // 좋아요 취소
