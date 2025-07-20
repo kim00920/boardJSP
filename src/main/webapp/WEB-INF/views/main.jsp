@@ -30,15 +30,16 @@
 
         <table class="table table-hover table-bordered align-middle mb-4">
             <thead class="table-dark">
-                <tr>
-                    <th>공지 여부</th>
-                    <th>게시글 번호</th>
-                    <th>카테고리</th>
-                    <th>제목</th>
-                    <th>조회수</th>
-                    <th>좋아요</th>
-                    <th>작성일</th>
-                </tr>
+               <tr class="text-center">
+                   <th>공지 여부</th>
+                   <th>번호</th>
+                   <th>카테고리</th>
+                   <th>제목</th>
+                   <th>작성자</th>
+                   <th>조회수</th>
+                   <th>좋아요</th>
+                   <th>작성일</th>
+               </tr>
             </thead>
             <tbody>
                 <c:forEach var="board" items="${boards.content}">
@@ -60,6 +61,7 @@
                         </td>
                         <td>${board.categoryName}</td>
                         <td>${board.title}</td>
+                        <td>${board.userName}</td>
                         <td>${board.viewCount}</td>
                         <td>${board.likeCount}</td>
                         <td>${board.formattedCreatedAt}</td>
@@ -76,7 +78,11 @@
                 <a href="/sorted/LIKE_DESC" class="btn btn-outline-danger btn-sm">좋아요 많은 순</a>
                 <a href="/sorted/LIKE_ASC" class="btn btn-outline-danger btn-sm">좋아요 적은 순</a>
             </div>
-            <a href="/boardForm" class="btn btn-primary btn-sm">게시글 작성하기</a>
+
+            <div class="d-flex align-items-center gap-2">
+                  <button id="notificationBtn" type="button" class="btn btn-warning btn-sm position-relative">알림</button>
+                  <a href="/boardForm" class="btn btn-primary btn-sm">게시글 작성하기</a>
+              </div>
         </div>
 
     <!-- 페이징 -->
@@ -125,8 +131,19 @@
 </div>
 </div>
 
+<div id="notificationListContainer" class="notification-list-container" style="display:none;">
+    <div class="border border-primary rounded p-3 bg-light shadow">
+        <h5>알림 목록</h5>
+        <div id="notificationList">
+            <!-- AJAX로 불러온 알림 내용 -->
+        </div>
+        <button id="closeNotificationList" class="btn btn-sm btn-secondary mt-3">닫기</button>
+    </div>
+</div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
