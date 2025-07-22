@@ -11,12 +11,9 @@ Framework : Spring 6.2.5 , SpringBoot 3.4.4<br>
 Library : Spring Security 6.4.4, Query DSL 5.1.0<br>
 BuildTool : Gradle<br>
 DB : MySQL<br>
-File : AWS S3<br><br>
-message Queue : rabbitMQ<br>
-
+File : AWS S3<br>
+message Queue : rabbitMQ<br><br>
 Front : Jsp, JavaScript, Bootstrap<br>
-
-
 
 
 
@@ -78,6 +75,21 @@ Front : Jsp, JavaScript, Bootstrap<br>
 
 ![Image](https://github.com/user-attachments/assets/00722a48-c09c-4ac7-bb9b-f382bdeacb0c)<br><br>
 
+5. 알림<br>
+- 작성글 회원은 다른 회원이 좋아요를 누를떄마다 알림 메세지를 받게된다<br>
+- 동일한 송신자가 좋아요를 누르고 다시 취소하고를 반복해서 알림이 계속해서 갈 경우를 생각해서<br>
+(송신자 id, 수신자 id, 수신자 게시글 id) 형태로 저장하여 DB 상에 존재하면 알림 메세지를 생성하지 않는다<br>
+- ajax 를 통해서 게시글 메인페이지에서 알림 부분만 동적 업데이트를 한다<br>
+  
+5.1 읽지 않는 알림 개수 갱신 및 알림 전제 조회<br>
+![Image](https://github.com/user-attachments/assets/dd7483c0-1ffb-4fc5-ae9a-58f7c425a9da)<br><br>
+
+5.2 알림 누르면 읽음 처리 및 알림 개수 갱신<br>
+![Image](https://github.com/user-attachments/assets/450b70b8-189f-4307-96a2-27ad61e9acc8)<br><br>
+
+5.3 알림 삭제<br>
+![Image](https://github.com/user-attachments/assets/2310e5c3-cb07-4c95-b759-43e80ee6732d)<br><br>
+
 # 느낀점 및 개선점
 - 게시글을 조회할떄 jsp 로 렌더링 되는 폼 영역과 js 로 렌더링되는 영역이 일치하지 않아서 새로고침 될떄마다 UI에 위화감이 들었다<br>
   → 게시글 정보 와 댓글 폼 부분까지만 jsp 로 작성하고, 댓글 목록 (댓글 + 대댓글) 란은 js 를 통해서 동적 렌더링으로 리팩토링했다<br><br>
@@ -85,3 +97,4 @@ Front : Jsp, JavaScript, Bootstrap<br>
 - 댓글 또는 대댓글을 수정하거나 삭제하면 회원이 현재 실행한 페이지가 아닌 1번 페이징으로 돌아가게되는 문제가 발생<br>
   → 기존에는 댓글, 대댓글을 수정하거나 삭제하고 난 이후 콜백함수를 loadComments() 를 통해 렌더링을 했지만, 현재 페이징을 저장하는 전역변수 currentPage = 0; 을 선언해서 <br>
   loadComments(currentPage) 콜백함수로 리팩토링을 통해 댓글을 수정하거나 삭제해도 현재 댓글 페이징을 유지하게 했다<br>
+
